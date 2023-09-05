@@ -41,6 +41,8 @@ dataEx1WmC = subset(dataExperiment1, root.interaction == "WM" & area == "common"
 # MM self
 data <- dataEx1MmS$root.length.m.
 shapiro.test(data)
+# normTest(data)
+
 # BM self
 data <- dataEx1BmS$root.length.m.
 shapiro.test(data)
@@ -56,6 +58,10 @@ shapiro.test(data)
 # WM common
 data <- dataEx1WmC$root.length.m.
 shapiro.test(data)
+# ALL
+data <- dataExperiment1$root.length.m.
+shapiro.test(data)
+normTest(data)
 
 
 ########################## 实验2:
@@ -153,6 +159,11 @@ shapiro.test(data)
 # Specific.root.length
 data <- dataEx4_wheat$Specific.root.length
 shapiro.test(data)
+
+# All Specific.root.length
+data <- dataExperiment4$Specific.root.length
+shapiro.test(data)
+normTest(data)
 
 ########################## 实验5:
 dataEx5_WW = subset(dataExperiment5, treatment == "WW")
