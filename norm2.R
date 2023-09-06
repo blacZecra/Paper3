@@ -20,13 +20,16 @@ dataExperiment7 <- read.csv("data/experiment7.csv",
 dataExperiment8 <- read.csv("data/experiment8.csv", 
                             sep = ",", header = TRUE, stringsAsFactors = F)
 
-# 定义函数
-normTest = function(data) {
+# 定义函数P-P图
+normPPTest = function(data) {
   m=mean(data)
   sd=sd(data)
-  shapiro.test(data) # 使用数据与均数方差相等的正态分布比较
   plot((rank(data)-0.5)/length(data), pnorm(data,mean=m, sd=sd),main=('Normal P-P Plot'))
   abline(0,1) # 画y=0+1x直线
+}
+
+# 定义函数Q-Q图
+normQQTest = function(data) {
   qqnorm(data)
   qqline(data)
 }
@@ -41,27 +44,149 @@ dataEx1WmC = subset(dataExperiment1, root.interaction == "WM" & area == "common"
 # MM self
 data <- dataEx1MmS$root.length.m.
 shapiro.test(data)
-# normTest(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmS$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmS$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmS$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 # BM self
 data <- dataEx1BmS$root.length.m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmS$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmS$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmS$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # WM self
 data <- dataEx1WmS$root.length.m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmS$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmS$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmS$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # MM common
 data <- dataEx1MmC$root.length.m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmC$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmC$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1MmC$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # BM common
 data <- dataEx1BmC$root.length.m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmC$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmC$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1BmC$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # WM common
 data <- dataEx1WmC$root.length.m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmC$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmC$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx1WmC$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # ALL
 data <- dataExperiment1$root.length.m.
 shapiro.test(data)
-normTest(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment1$root.biomass.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment1$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment1$Specific.root.length..m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 
 ########################## 实验2:
@@ -73,30 +198,141 @@ dataEx2QSM = subset(dataExperiment2, culture == "quartz sand" & treatment == "M"
 dataEx2QSMW_M = subset(dataExperiment2, culture == "quartz sand" & treatment == "M/W-M")
 dataEx2QSW = subset(dataExperiment2, culture == "quartz sand" & treatment == "W")
 dataEx2QSMW_W = subset(dataExperiment2, culture == "quartz sand" & treatment == "M/W-W")
+dataEx2SAll = subset(dataExperiment2, culture == "soil")
 # soil M
 data <- dataEx2SM$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # soil MW-M
 data <- dataEx2SMW_M$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # soil W
 data <- dataEx2SW$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # soil MW-W
 data <- dataEx2SMW_W$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # quartz sand M
 data <- dataEx2QSM$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # quartz sand MW-M
 data <- dataEx2QSMW_M$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # quartz sand W
 data <- dataEx2QSW$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # quartz sand MW-W
 data <- dataEx2QSMW_W$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+# soil ALL
+data <- dataEx2SAll$root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+
+########################## 实验3:
+dataEx3_M = subset(dataExperiment3, Treatments == "Maize grown alone")
+dataEx3_MW = subset(dataExperiment3, Treatments == "Maize grown with wheat plant")
+dataEx3_MW_Ex = subset(dataExperiment3, Treatments == "Maize grown with wheat root exudates")
+# Maize grown alone 
+data <- dataEx3_M$root.length..m
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_M$Root.biomass..10.2.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_M$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_M$Specific.root.length..m.g.1.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# Maize grown with wheat plant
+data <- dataEx3_MW$root.length..m
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW$Root.biomass..10.2.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW$Specific.root.length..m.g.1.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# Maize grown with wheat root exudates
+data <- dataEx3_MW_Ex$root.length..m
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW_Ex$Root.biomass..10.2.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW_Ex$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx3_MW_Ex$Specific.root.length..m.g.1.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# All
+data <- dataExperiment3$root.length..m
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment3$Root.biomass..10.2.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment3$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment3$Specific.root.length..m.g.1.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 
 ########################## 实验4:
@@ -108,62 +344,111 @@ dataEx4_wheat = subset(dataExperiment4, treat == "wheat")
 # root length
 data <- dataEx4_CK$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.biomass
 data <- dataEx4_CK$Root.biomass
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.surface.area
 data <- dataEx4_CK$Root.surface.area
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Specific.root.length
 data <- dataEx4_CK$Specific.root.length
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 # maize 
 # root length
 data <- dataEx4_maize$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.biomass
 data <- dataEx4_maize$Root.biomass
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.surface.area
 data <- dataEx4_maize$Root.surface.area
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Specific.root.length
 data <- dataEx4_maize$Specific.root.length
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 # barley 
 # root length
 data <- dataEx4_barley$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.biomass
 data <- dataEx4_barley$Root.biomass
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.surface.area
 data <- dataEx4_barley$Root.surface.area
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Specific.root.length
 data <- dataEx4_barley$Specific.root.length
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
 # wheat 
 # root length
 data <- dataEx4_wheat$root.length..m.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.biomass
 data <- dataEx4_wheat$Root.biomass
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Root.surface.area
 data <- dataEx4_wheat$Root.surface.area
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # Specific.root.length
 data <- dataEx4_wheat$Specific.root.length
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
-# All Specific.root.length
+# All
+# root length
+data <- dataExperiment4$root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+# Root.biomass
+data <- dataExperiment4$Root.biomass
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+# Root.surface.area
+data <- dataExperiment4$Root.surface.area
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+# Specific.root.length
 data <- dataExperiment4$Specific.root.length
 shapiro.test(data)
-normTest(data)
+normPPTest(data)
+normQQTest(data)
 
 ########################## 实验5:
 dataEx5_WW = subset(dataExperiment5, treatment == "WW")
@@ -173,13 +458,26 @@ dataEx5_WM = subset(dataExperiment5, treatment == "WM")
 # WW
 data <- dataEx5_WW$MBOA.concentration..μg.pot.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # MM
 data <- dataEx5_MM$MBOA.concentration..μg.pot.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # W+M
 data <- dataEx5_WpM$MBOA.concentration..μg.pot.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # WM
 data <- dataEx5_WM$MBOA.concentration..μg.pot.
 shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+# All
+data <- dataExperiment5$MBOA.concentration..μg.pot.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 
