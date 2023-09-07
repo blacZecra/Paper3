@@ -481,3 +481,100 @@ shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
 
+
+########################## 实验6:
+dataEx6_maize = subset(dataExperiment6, crop == "maize")
+dataEx6_wheat = subset(dataExperiment6, crop == "wheat")
+# maize
+data <- dataEx6_maize$root.length.m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_maize$Root.biomass..10.1g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_maize$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_maize$Specific.root.length.m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# wheat
+data <- dataEx6_wheat$root.length.m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_wheat$Root.biomass..10.1g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_wheat$Root.surface.area..cm2.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx6_wheat$Specific.root.length.m.g.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+########################## 实验7:
+dataEx7_dose0 = subset(dataExperiment7, dose == 0)
+dataEx7_dose0_3 = subset(dataExperiment7, dose == 0.3)
+# dose == 0
+data <- dataEx7_dose0$root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx7_dose0$primary.root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx7_dose0$seminal.root.length.m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# dose == 0.3
+data <- dataEx7_dose0_3$root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx7_dose0_3$primary.root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx7_dose0_3$seminal.root.length.m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# ALL
+data <- dataExperiment7$root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment7$primary.root.length..m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment7$seminal.root.length.m.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
