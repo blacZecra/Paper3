@@ -199,51 +199,208 @@ dataEx2QSMW_M = subset(dataExperiment2, culture == "quartz sand" & treatment == 
 dataEx2QSW = subset(dataExperiment2, culture == "quartz sand" & treatment == "W")
 dataEx2QSMW_W = subset(dataExperiment2, culture == "quartz sand" & treatment == "M/W-W")
 dataEx2SAll = subset(dataExperiment2, culture == "soil")
+dataEx2S_M = subset(dataExperiment2, culture == "soil" & (treatment == "M" | treatment == "M/W-M"))
+dataEx2S_W = subset(dataExperiment2, culture == "soil" & (treatment == "W" | treatment == "M/W-W"))
+dataEx2QAll = subset(dataExperiment2, culture == "quartz sand")
+dataEx2Q_M = subset(dataExperiment2, culture == "quartz sand" & (treatment == "M" | treatment == "M/W-M"))
+dataEx2Q_W = subset(dataExperiment2, culture == "quartz sand" & (treatment == "W" | treatment == "M/W-W"))
+
 # soil M
-data <- dataEx2SM$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2SM[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # soil MW-M
-data <- dataEx2SMW_M$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2SMW_M[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # soil W
-data <- dataEx2SW$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2SW[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+
 # soil MW-W
-data <- dataEx2SMW_W$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2SMW_W[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # quartz sand M
-data <- dataEx2QSM$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2QSM[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # quartz sand MW-M
-data <- dataEx2QSMW_M$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2QSMW_M[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # quartz sand W
-data <- dataEx2QSW$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2QSW[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
 # quartz sand MW-W
-data <- dataEx2QSMW_W$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
-# soil ALL
-data <- dataEx2SAll$root.length..m.
-shapiro.test(data)
-normPPTest(data)
-normQQTest(data)
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2QSMW_W[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# soil all
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2SAll[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# soil all M
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2S_M[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# soil all W
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2S_W[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# quartz sand all
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2QAll[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# quartz sand all M
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2Q_M[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
+
+# quartz sand all W
+for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
+  # 跳过正态检验列
+  if (i == "正态检验") {
+    next
+  }
+  print(i)
+  data <- dataEx2Q_W[,i]
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
 
 
 ########################## 实验3:
@@ -578,3 +735,172 @@ shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
 
+
+
+########################## 实验8:
+dataEx8_P_PIN2 = subset(dataExperiment8, root == "primary" & gene == "PIN2")
+dataEx8_P_IAA2 = subset(dataExperiment8, root == "primary" & gene == "IAA2")
+dataEx8_P_IAA21 = subset(dataExperiment8, root == "primary" & gene == "IAA21")
+dataEx8_P_ARF2 = subset(dataExperiment8, root == "primary" & gene == "ARF2")
+dataEx8_P_GH3 = subset(dataExperiment8, root == "primary" & gene == "GH3")
+
+dataEx8_S_PIN2 = subset(dataExperiment8, root == "seminal" & gene == "PIN2")
+dataEx8_S_IAA2 = subset(dataExperiment8, root == "seminal" & gene == "IAA2")
+dataEx8_S_IAA21 = subset(dataExperiment8, root == "seminal" & gene == "IAA21")
+dataEx8_S_ARF2 = subset(dataExperiment8, root == "seminal" & gene == "ARF2")
+dataEx8_S_GH3 = subset(dataExperiment8, root == "seminal" & gene == "GH3")
+# primary PIN2
+data <- dataEx8_P_PIN2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# primary IAA2
+data <- dataEx8_P_IAA2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# primary IAA21
+data <- dataEx8_P_IAA21$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# primary ARF2
+data <- dataEx8_P_ARF2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# primary GH3
+data <- dataEx8_P_GH3$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# seminal PIN2
+data <- dataEx8_S_PIN2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# seminal IAA2
+data <- dataEx8_S_IAA2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# seminal IAA21
+data <- dataEx8_S_IAA21$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# seminal ARF2
+data <- dataEx8_S_ARF2$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+# seminal GH3
+data <- dataEx8_S_GH3$expression
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+time = c(6, 12, 24, 48, 96, 192)
+for (t in time) {
+  print(t)
+  dataEx8_P_PIN2 = subset(dataExperiment8, root == "primary" & gene == "PIN2" & time == t)
+  dataEx8_P_IAA2 = subset(dataExperiment8, root == "primary" & gene == "IAA2" & time == t)
+  dataEx8_P_IAA21 = subset(dataExperiment8, root == "primary" & gene == "IAA21" & time == t)
+  dataEx8_P_ARF2 = subset(dataExperiment8, root == "primary" & gene == "ARF2" & time == t)
+  dataEx8_P_GH3 = subset(dataExperiment8, root == "primary" & gene == "GH3" & time == t)
+  
+  dataEx8_S_PIN2 = subset(dataExperiment8, root == "seminal" & gene == "PIN2" & time == t)
+  dataEx8_S_IAA2 = subset(dataExperiment8, root == "seminal" & gene == "IAA2" & time == t)
+  dataEx8_S_IAA21 = subset(dataExperiment8, root == "seminal" & gene == "IAA21" & time == t)
+  dataEx8_S_ARF2 = subset(dataExperiment8, root == "seminal" & gene == "ARF2" & time == t)
+  dataEx8_S_GH3 = subset(dataExperiment8, root == "seminal" & gene == "GH3" & time == t)
+  
+  # primary PIN2
+  print("primary PIN2:")
+  data <- dataEx8_P_PIN2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # primary IAA2
+  print("primary IAA2:")
+  data <- dataEx8_P_IAA2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # primary IAA21
+  print("primary IAA21:")
+  data <- dataEx8_P_IAA21$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # primary ARF2
+  print("primary ARF2:")
+  data <- dataEx8_P_ARF2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # primary GH3
+  print("primary GH3:")
+  data <- dataEx8_P_GH3$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # seminal PIN2
+  print("seminal PIN2:")
+  data <- dataEx8_S_PIN2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # seminal IAA2
+  print("seminal IAA2:")
+  data <- dataEx8_S_IAA2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # seminal IAA21
+  print("seminal IAA21:")
+  data <- dataEx8_S_IAA21$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # seminal ARF2
+  print("seminal ARF2:")
+  data <- dataEx8_S_ARF2$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  # seminal GH3
+  print("seminal GH3:")
+  data <- dataEx8_S_GH3$expression
+  swTest = shapiro.test(data)
+  print(swTest)
+  normPPTest(data)
+  normQQTest(data)
+}
