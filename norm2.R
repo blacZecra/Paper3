@@ -170,21 +170,25 @@ normQQTest(data)
 # ALL
 data <- dataExperiment1$root.length.m.
 shapiro.test(data)
+bartlett.test(root.length.m. ~ root.interaction, data = dataExperiment1)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment1$root.biomass.g.
 shapiro.test(data)
+bartlett.test(root.biomass.g. ~ root.interaction, data = dataExperiment1)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment1$Root.surface.area..cm2.
 shapiro.test(data)
+bartlett.test(Root.surface.area..cm2. ~ root.interaction, data = dataExperiment1)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment1$Specific.root.length..m.g.
 shapiro.test(data)
+bartlett.test(Specific.root.length..m.g. ~ root.interaction, data = dataExperiment1)
 normPPTest(data)
 normQQTest(data)
 
@@ -208,7 +212,7 @@ dataEx2Q_W = subset(dataExperiment2, culture == "quartz sand" & (treatment == "W
 # soil M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -222,7 +226,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil MW-M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -236,7 +240,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -251,7 +255,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil MW-W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -265,7 +269,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -279,7 +283,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand MW-M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -293,7 +297,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -307,7 +311,7 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand MW-W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
@@ -321,13 +325,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil all
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2SAll[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2SAll[,i],
+    treatment = dataEx2SAll[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -335,13 +348,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil all M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2S_M[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2S_M[,i],
+    treatment = dataEx2S_M[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -349,13 +371,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # soil all W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2S_W[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2S_W[,i],
+    treatment = dataEx2S_W[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -363,13 +394,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand all
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2QAll[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2QAll[,i],
+    treatment = dataEx2QAll[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -377,13 +417,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand all M
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2Q_M[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2Q_M[,i],
+    treatment = dataEx2Q_M[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -391,13 +440,22 @@ for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
 # quartz sand all W
 for(i in colnames(dataExperiment2[, 3:ncol(dataExperiment2)])) {
   # 跳过正态检验列
-  if (i == "正态检验") {
+  if (grepl("正态检验", i)) {
     next
   }
   print(i)
   data <- dataEx2Q_W[,i]
   swTest = shapiro.test(data)
   print(swTest)
+  
+  # 方差齐性检验
+  table = data.frame(
+    data = dataEx2Q_W[,i],
+    treatment = dataEx2Q_W[,"treatment"]
+  )
+  barTest = bartlett.test(data ~ treatment, data = table)
+  print(barTest)
+  
   normPPTest(data)
   normQQTest(data)
 }
@@ -471,23 +529,27 @@ normPPTest(data)
 normQQTest(data)
 
 # All
-data <- dataExperiment3$root.length..m
+data <- dataExperiment3$root.length..m.
 shapiro.test(data)
+bartlett.test(root.length..m. ~ Treatments, data = dataExperiment3)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment3$Root.biomass..10.2.g.
 shapiro.test(data)
+bartlett.test(Root.biomass..10.2.g. ~ Treatments, data = dataExperiment3)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment3$Root.surface.area..cm2.
 shapiro.test(data)
+bartlett.test(Root.surface.area..cm2. ~ Treatments, data = dataExperiment3)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment3$Specific.root.length..m.g.1.
 shapiro.test(data)
+bartlett.test(Specific.root.length..m.g.1. ~ Treatments, data = dataExperiment3)
 normPPTest(data)
 normQQTest(data)
 
@@ -589,36 +651,58 @@ normQQTest(data)
 # root length
 data <- dataExperiment4$root.length..m.
 shapiro.test(data)
+bartlett.test(root.length..m. ~ treat, data = dataExperiment4)
 normPPTest(data)
 normQQTest(data)
 # Root.biomass
-data <- dataExperiment4$Root.biomass
+data <- dataExperiment4$Root.biomass..10.1.g.
 shapiro.test(data)
+bartlett.test(Root.biomass..10.1.g. ~ treat, data = dataExperiment4)
 normPPTest(data)
 normQQTest(data)
 # Root.surface.area
-data <- dataExperiment4$Root.surface.area
+data <- dataExperiment4$Root.surface.area..cm2.
 shapiro.test(data)
+bartlett.test(Root.surface.area..cm2. ~ treat, data = dataExperiment4)
 normPPTest(data)
 normQQTest(data)
 # Specific.root.length
-data <- dataExperiment4$Specific.root.length
+data <- dataExperiment4$Specific.root.length..m.g.1.
 shapiro.test(data)
+bartlett.test(Specific.root.length..m.g.1. ~ treat, data = dataExperiment4)
 normPPTest(data)
 normQQTest(data)
 
 ########################## 实验5:
+# 求log
+dataExperiment5$logMBOA = log(dataExperiment5[, "MBOA.mg.L."])
+dataExperiment5$logMBOA_con = log(dataExperiment5[, "MBOA.concentration..μg.pot."])
 dataEx5_WW = subset(dataExperiment5, treatment == "WW")
 dataEx5_MM = subset(dataExperiment5, treatment == "MM")
 dataEx5_WpM = subset(dataExperiment5, treatment == "W+M")
 dataEx5_WM = subset(dataExperiment5, treatment == "WM")
+
+dataEx5_WM_WpM = subset(dataExperiment5, treatment == "WM"|treatment == "W+M")
+dataEx5_except_WpM = subset(dataExperiment5, treatment != "W+M")
+
 # WW
 data <- dataEx5_WW$MBOA.concentration..μg.pot.
 shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
+
+data <- dataEx5_WW$MBOA.mg.L.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
 # MM
 data <- dataEx5_MM$MBOA.concentration..μg.pot.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_MM$MBOA.mg.L.
 shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
@@ -627,17 +711,95 @@ data <- dataEx5_WpM$MBOA.concentration..μg.pot.
 shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
+
+data <- dataEx5_WpM$MBOA.mg.L.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
 # WM
 data <- dataEx5_WM$MBOA.concentration..μg.pot.
+shapiro.test(data)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_WM$MBOA.mg.L.
 shapiro.test(data)
 normPPTest(data)
 normQQTest(data)
 # All
 data <- dataExperiment5$MBOA.concentration..μg.pot.
 shapiro.test(data)
+bartlett.test(MBOA.concentration..μg.pot. ~ treatment, data = dataExperiment5)
 normPPTest(data)
 normQQTest(data)
 
+data <- dataExperiment5$MBOA.mg.L.
+shapiro.test(data)
+bartlett.test(MBOA.mg.L. ~ treatment, data = dataExperiment5)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment5$logMBOA_con
+shapiro.test(data)
+bartlett.test(logMBOA_con ~ treatment, data = dataExperiment5)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataExperiment5$logMBOA
+shapiro.test(data)
+bartlett.test(logMBOA ~ treatment, data = dataExperiment5)
+normPPTest(data)
+normQQTest(data)
+
+# dataEx5_except_WpM
+data <- dataEx5_except_WpM$MBOA.concentration..μg.pot.
+shapiro.test(data)
+bartlett.test(MBOA.concentration..μg.pot. ~ treatment, data = dataEx5_except_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_except_WpM$MBOA.mg.L.
+shapiro.test(data)
+bartlett.test(MBOA.mg.L. ~ treatment, data = dataEx5_except_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_except_WpM$logMBOA_con
+shapiro.test(data)
+bartlett.test(logMBOA_con ~ treatment, data = dataEx5_except_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_except_WpM$logMBOA
+shapiro.test(data)
+bartlett.test(logMBOA ~ treatment, data = dataEx5_except_WpM)
+normPPTest(data)
+normQQTest(data)
+
+# WM_WpM
+data <- dataEx5_WM_WpM$MBOA.concentration..μg.pot.
+shapiro.test(data)
+bartlett.test(MBOA.concentration..μg.pot. ~ treatment, data = dataEx5_WM_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_WM_WpM$MBOA.mg.L.
+shapiro.test(data)
+bartlett.test(MBOA.mg.L. ~ treatment, data = dataEx5_WM_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_WM_WpM$logMBOA_con
+shapiro.test(data)
+bartlett.test(logMBOA_con ~ treatment, data = dataEx5_WM_WpM)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx5_WM_WpM$logMBOA
+shapiro.test(data)
+bartlett.test(logMBOA ~ treatment, data = dataEx5_WM_WpM)
+normPPTest(data)
+normQQTest(data)
 
 ########################## 实验6:
 dataEx6_maize = subset(dataExperiment6, crop == "maize")
@@ -645,42 +807,50 @@ dataEx6_wheat = subset(dataExperiment6, crop == "wheat")
 # maize
 data <- dataEx6_maize$root.length.m.
 shapiro.test(data)
+bartlett.test(root.length.m. ~ dose, data = dataEx6_maize)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_maize$Root.biomass..10.1g.
 shapiro.test(data)
+bartlett.test(Root.biomass..10.1g. ~ dose, data = dataEx6_maize)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_maize$Root.surface.area..cm2.
 shapiro.test(data)
+bartlett.test(Root.surface.area..cm2. ~ dose, data = dataEx6_maize)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_maize$Specific.root.length.m.g.
 shapiro.test(data)
+bartlett.test(Specific.root.length.m.g. ~ dose, data = dataEx6_maize)
 normPPTest(data)
 normQQTest(data)
 
 # wheat
 data <- dataEx6_wheat$root.length.m.
 shapiro.test(data)
+bartlett.test(root.length.m. ~ dose, data = dataEx6_wheat)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_wheat$Root.biomass..10.1g.
 shapiro.test(data)
+bartlett.test(Root.biomass..10.1g. ~ dose, data = dataEx6_wheat)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_wheat$Root.surface.area..cm2.
 shapiro.test(data)
+bartlett.test(Root.surface.area..cm2. ~ dose, data = dataEx6_wheat)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataEx6_wheat$Specific.root.length.m.g.
 shapiro.test(data)
+bartlett.test(Specific.root.length.m.g. ~ dose, data = dataEx6_wheat)
 normPPTest(data)
 normQQTest(data)
 
@@ -722,22 +892,26 @@ normQQTest(data)
 # ALL
 data <- dataExperiment7$root.length..m.
 shapiro.test(data)
+bartlett.test(root.length..m. ~ dose, data = dataExperiment7)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment7$primary.root.length..m.
 shapiro.test(data)
+bartlett.test(primary.root.length..m. ~ dose, data = dataExperiment7)
 normPPTest(data)
 normQQTest(data)
 
 data <- dataExperiment7$seminal.root.length.m.
 shapiro.test(data)
+bartlett.test(seminal.root.length.m. ~ dose, data = dataExperiment7)
 normPPTest(data)
 normQQTest(data)
 
 
 
 ########################## 实验8:
+dataExperiment8$logExpression = log(dataExperiment8[,"expression"])
 dataEx8_P_PIN2 = subset(dataExperiment8, root == "primary" & gene == "PIN2")
 dataEx8_P_IAA2 = subset(dataExperiment8, root == "primary" & gene == "IAA2")
 dataEx8_P_IAA21 = subset(dataExperiment8, root == "primary" & gene == "IAA21")
@@ -752,64 +926,135 @@ dataEx8_S_GH3 = subset(dataExperiment8, root == "seminal" & gene == "GH3")
 # primary PIN2
 data <- dataEx8_P_PIN2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_P_PIN2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_P_PIN2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_P_PIN2)
 normPPTest(data)
 normQQTest(data)
 
 # primary IAA2
 data <- dataEx8_P_IAA2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_P_IAA2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_P_IAA2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_P_IAA2)
 normPPTest(data)
 normQQTest(data)
 
 # primary IAA21
 data <- dataEx8_P_IAA21$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_P_IAA21)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_P_IAA21$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_P_IAA21)
 normPPTest(data)
 normQQTest(data)
 
 # primary ARF2
 data <- dataEx8_P_ARF2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_P_ARF2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_P_ARF2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_P_ARF2)
 normPPTest(data)
 normQQTest(data)
 
 # primary GH3
 data <- dataEx8_P_GH3$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_P_GH3)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_P_GH3$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_P_GH3)
 normPPTest(data)
 normQQTest(data)
 
 # seminal PIN2
 data <- dataEx8_S_PIN2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_S_PIN2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_S_PIN2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_S_PIN2)
 normPPTest(data)
 normQQTest(data)
 
 # seminal IAA2
 data <- dataEx8_S_IAA2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_S_IAA2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_S_IAA2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_S_IAA2)
 normPPTest(data)
 normQQTest(data)
 
 # seminal IAA21
 data <- dataEx8_S_IAA21$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_S_IAA21)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_S_IAA21$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_S_IAA21)
 normPPTest(data)
 normQQTest(data)
 
 # seminal ARF2
 data <- dataEx8_S_ARF2$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_S_ARF2)
+normPPTest(data)
+normQQTest(data)
+
+data <- dataEx8_S_ARF2$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_S_ARF2)
 normPPTest(data)
 normQQTest(data)
 
 # seminal GH3
 data <- dataEx8_S_GH3$expression
 shapiro.test(data)
+bartlett.test(expression ~ dose, data = dataEx8_S_GH3)
 normPPTest(data)
 normQQTest(data)
 
-time = c(6, 12, 24, 48, 96, 192)
+data <- dataEx8_S_GH3$logExpression
+shapiro.test(data)
+bartlett.test(logExpression ~ dose, data = dataEx8_S_GH3)
+normPPTest(data)
+normQQTest(data)
+
+#time = c(6, 12, 24, 48, 96, 192)
+time = c(48, 96, 192)
 for (t in time) {
   print(t)
   dataEx8_P_PIN2 = subset(dataExperiment8, root == "primary" & gene == "PIN2" & time == t)
@@ -829,6 +1074,16 @@ for (t in time) {
   data <- dataEx8_P_PIN2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_P_PIN2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_P_PIN2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_P_PIN2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -837,6 +1092,16 @@ for (t in time) {
   data <- dataEx8_P_IAA2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_P_IAA2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_P_IAA2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_P_IAA2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -845,6 +1110,16 @@ for (t in time) {
   data <- dataEx8_P_IAA21$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_P_IAA21)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_P_IAA21$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_P_IAA21)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -853,6 +1128,16 @@ for (t in time) {
   data <- dataEx8_P_ARF2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_P_ARF2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_P_ARF2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_P_ARF2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -861,6 +1146,16 @@ for (t in time) {
   data <- dataEx8_P_GH3$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_P_GH3)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_P_GH3$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_P_GH3)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -869,6 +1164,16 @@ for (t in time) {
   data <- dataEx8_S_PIN2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_S_PIN2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_S_PIN2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_S_PIN2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -877,6 +1182,16 @@ for (t in time) {
   data <- dataEx8_S_IAA2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_S_IAA2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_S_IAA2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_S_IAA2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -885,6 +1200,16 @@ for (t in time) {
   data <- dataEx8_S_IAA21$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_S_IAA21)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_S_IAA21$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_S_IAA21)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -893,6 +1218,16 @@ for (t in time) {
   data <- dataEx8_S_ARF2$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_S_ARF2)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_S_ARF2$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_S_ARF2)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
   
@@ -901,6 +1236,16 @@ for (t in time) {
   data <- dataEx8_S_GH3$expression
   swTest = shapiro.test(data)
   print(swTest)
+  bartTest = bartlett.test(expression ~ dose, data = dataEx8_S_GH3)
+  print(bartTest)
+  normPPTest(data)
+  normQQTest(data)
+  
+  data <- dataEx8_S_GH3$logExpression
+  swTest = shapiro.test(data)
+  print(swTest)
+  bartTest = bartlett.test(logExpression ~ dose, data = dataEx8_S_GH3)
+  print(bartTest)
   normPPTest(data)
   normQQTest(data)
 }
