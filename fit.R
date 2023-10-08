@@ -80,13 +80,6 @@ ggplot(dataExperiment6, aes(dose, root.length.m., color = crop, linetype = crop)
   geom_point() + 
   geom_smooth(aes(fill = crop), method = "lm", formula = formula) + 
   theme_bw() + #设置主题
-#  stat_poly_eq(
-#    # paste里是latex形式公式
-#    use_label(c("eq", "R2", "adj.R2", "p.value.label")),
-#    formula = formula,
-#    parse = TRUE, # 表示将这个语句翻译成可读形式
-#    size = 4 #公式字体大小
-# ) + 
   scale_fill_manual(values = c("#404040", "#909090")) + 
   scale_color_manual(values = c("#404040", "#909090"))
 
