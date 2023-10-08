@@ -49,3 +49,4 @@ aggregate(as.data.frame(clusterData), by = list(cluster = clusters), median)
 # 结果绘图
 plot(fit.average, hang = -1, cex=.8, main = "Average Linkage Clustering\n4 Cluster Solution")
 rect.hclust(fit.average, k = 4)
+
