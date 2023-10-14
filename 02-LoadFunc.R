@@ -77,6 +77,148 @@ Plot.circle = function(indicators){
   p + theme(plot.margin = margin(0, 0, 0, 0, "cm"))
 }
 
+# cirlce plot to display ecosystem function and economic proxies delivery of the 4 cropping systems 
+Plot.circleCc = function(indicators){ 
+  
+  Cdata <- subset(as.data.frame(summary), Cc==indicators)
+  
+  # Set a number of 'empty bar' to add at the end of each group
+  empty_bar <- 2
+  to_add <- data.frame( matrix(NA, empty_bar*nlevels(Cdata$services), ncol(Cdata)) )
+  colnames(to_add) <- colnames(Cdata)
+  to_add$services <- rep(levels(Cdata$services), each=empty_bar)
+  Cdata <- rbind(Cdata, to_add)
+  Cdata <- Cdata %>% arrange(services)
+  Cdata$id <- seq(1, nrow(Cdata))
+  
+  # Get the name and the y position of each label
+  label_data <- Cdata
+  number_of_bar <- nrow(label_data)
+  angle <- 90 - 360 * (label_data$id-0.25) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+  label_data$hjust <- ifelse( angle < -90, 1, 0)
+  label_data$angle <- ifelse(angle < -90, angle+180, angle)
+  
+  # prepare a data frame for base lines
+  base_data <- Cdata %>% 
+    group_by(services) %>% 
+    dplyr::summarize(start=min(id), end=max(id) - empty_bar) %>% 
+    rowwise() %>% 
+    mutate(title=mean(c(start, end)))
+  
+  # prepare a data frame for grid (scales)
+  grid_data <- base_data
+  grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+  grid_data$start <- grid_data$start - 1
+  grid_data[1,2] <- max(Cdata$id)
+  
+  p <- ggplot(Cdata, aes(x=as.factor(id), y=mean, fill=services)) +
+    geom_bar(aes(x=as.factor(id), y=mean, fill=services), stat="identity", alpha=0.2) +
+    geom_errorbar(aes(ymin=mean, ymax=mean+ci), width=0.05) +
+    scale_fill_manual(values=c("PaleGreen2","#C8B9DCFF","#E69F00","#619CFF")) +
+    
+    # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.05, y = 1.00, xend = 0.2, yend = 1.00), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.1, y = 0.75, xend = 0.2, yend = 0.75), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.2, y = 0.50, xend = 0.2, yend = 0.50), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.3, y = 0.25, xend = 0.2, yend = 0.25), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.4, y = 0.00, xend = 0.15, yend = 0.00), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    #geom_segment(data=grid_data, aes(x = end, y = 0.00, xend = start, yend = 0.00), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    
+    # Add text showing the value of each 100/75/50/25 lines
+    annotate("text", x = 0, y = c(0.05,0.3, 0.55, 0.8, 1.05), label = c("0.00","0.25", "0.50", "0.75", "1.00"), size=2.5 , angle=0, fontface="bold", hjust=1) +
+    
+    geom_bar(aes(x=as.factor(id), y=mean, fill=services),colour="black", stat="identity", alpha=0.5) +
+    ylim(-0.6,1.5) +
+    theme_minimal() +
+    theme(
+      legend.position = "none",
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank(),
+      plot.margin = unit(rep(-1,4), "cm") 
+    ) +
+    coord_polar() + 
+    geom_text(data=label_data, aes(x=id, y=1.1, label=variable, hjust=hjust), color="black", alpha=0.8, size=4, angle= label_data$angle, inherit.aes = FALSE ) +
+    
+    # Add base line information
+    geom_segment(data=base_data, aes(x = start-1, y = -0.05, xend = end+1, yend = -0.05), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE ) +  
+    geom_text(data=base_data, aes(x = 0, y = -0.6, label=indicators), colour = "black", alpha=0.8, size=5, fontface="bold", inherit.aes = FALSE) +
+    geom_text(data=base_data, aes(x = title + c(-1,1,-1,1), y = c(-0.3,-0.3,-0.3,-0.3), label=c("cluster1","cluster2","cluster3","cluster4")), hjust=c(0,0,1,0.8), colour = "black", alpha=0.8, size=2.5, fontface="bold", inherit.aes = FALSE)
+  
+  p + theme(plot.margin = margin(0, 0, 0, 0, "cm"))
+}
+
+# cirlce plot to display ecosystem function and economic proxies delivery of the 4 cropping systems 
+Plot.circleCs = function(indicators){ 
+  
+  Cdata <- subset(as.data.frame(summary), Cs==indicators)
+  
+  # Set a number of 'empty bar' to add at the end of each group
+  empty_bar <- 2
+  to_add <- data.frame( matrix(NA, empty_bar*nlevels(Cdata$services), ncol(Cdata)) )
+  colnames(to_add) <- colnames(Cdata)
+  to_add$services <- rep(levels(Cdata$services), each=empty_bar)
+  Cdata <- rbind(Cdata, to_add)
+  Cdata <- Cdata %>% arrange(services)
+  Cdata$id <- seq(1, nrow(Cdata))
+  
+  # Get the name and the y position of each label
+  label_data <- Cdata
+  number_of_bar <- nrow(label_data)
+  angle <- 90 - 360 * (label_data$id-0.25) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+  label_data$hjust <- ifelse( angle < -90, 1, 0)
+  label_data$angle <- ifelse(angle < -90, angle+180, angle)
+  
+  # prepare a data frame for base lines
+  base_data <- Cdata %>% 
+    group_by(services) %>% 
+    dplyr::summarize(start=min(id), end=max(id) - empty_bar) %>% 
+    rowwise() %>% 
+    mutate(title=mean(c(start, end)))
+  
+  # prepare a data frame for grid (scales)
+  grid_data <- base_data
+  grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+  grid_data$start <- grid_data$start - 1
+  grid_data[1,2] <- max(Cdata$id)
+  
+  p <- ggplot(Cdata, aes(x=as.factor(id), y=mean, fill=services)) +
+    geom_bar(aes(x=as.factor(id), y=mean, fill=services), stat="identity", alpha=0.2) +
+    geom_errorbar(aes(ymin=mean, ymax=mean+ci), width=0.05) +
+    scale_fill_manual(values=c("PaleGreen2","#C8B9DCFF","#E69F00","#619CFF")) +
+    
+    # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.05, y = 1.00, xend = 0.2, yend = 1.00), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.1, y = 0.75, xend = 0.2, yend = 0.75), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.2, y = 0.50, xend = 0.2, yend = 0.50), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.3, y = 0.25, xend = 0.2, yend = 0.25), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = max(Cdata$id)-0.4, y = 0.00, xend = 0.15, yend = 0.00), colour = "grey70", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    #geom_segment(data=grid_data, aes(x = end, y = 0.00, xend = start, yend = 0.00), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    
+    # Add text showing the value of each 100/75/50/25 lines
+    annotate("text", x = 0, y = c(0.05,0.3, 0.55, 0.8, 1.05), label = c("0.00","0.25", "0.50", "0.75", "1.00"), size=2.5 , angle=0, fontface="bold", hjust=1) +
+    
+    geom_bar(aes(x=as.factor(id), y=mean, fill=services),colour="black", stat="identity", alpha=0.5) +
+    ylim(-0.6,1.5) +
+    theme_minimal() +
+    theme(
+      legend.position = "none",
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank(),
+      plot.margin = unit(rep(-1,4), "cm") 
+    ) +
+    coord_polar() + 
+    geom_text(data=label_data, aes(x=id, y=1.1, label=variable, hjust=hjust), color="black", alpha=0.8, size=4, angle= label_data$angle, inherit.aes = FALSE ) +
+    
+    # Add base line information
+    geom_segment(data=base_data, aes(x = start-1, y = -0.05, xend = end+1, yend = -0.05), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE ) +  
+    geom_text(data=base_data, aes(x = 0, y = -0.6, label=indicators), colour = "black", alpha=0.8, size=5, fontface="bold", inherit.aes = FALSE) +
+    geom_text(data=base_data, aes(x = title + c(-1,1,-1,1), y = c(-0.3,-0.3,-0.3,-0.3), label=c("cluster1","cluster2","cluster3","cluster4")), hjust=c(0,0,1,0.8), colour = "black", alpha=0.8, size=2.5, fontface="bold", inherit.aes = FALSE)
+  
+  p + theme(plot.margin = margin(0, 0, 0, 0, "cm"))
+}
+
 # boxplot for Proxies, Goods, Categories and EMF indexes (scaled 0-1)
 Plot.box.EMF = function(indicators, ylim){ 
   for (i in indicators){
